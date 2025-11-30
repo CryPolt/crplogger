@@ -1,0 +1,43 @@
+{
+  "name": "@crypolt/crplogger",
+  "version": "1.0.0",
+  "description": "Lightweight async JSON logger with automatic request_id, structured logs, global initialization and zero dependencies.",
+  "author": "Vladislav Poltavskiy",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.js",
+  "types": "src/types.d.ts",
+  "exports": {
+    ".": {
+      "import": "./src/index.js",
+      "types": "./src/types.d.ts"
+    }
+  },
+  "files": [
+    "src",
+    "README.md"
+  ],
+  "scripts": {
+    "fmt": "node_modules/.bin/prettier --write .",
+    "fmt:check": "node_modules/.bin/prettier --check ."
+  },
+  "keywords": [
+    "logger",
+    "logging",
+    "async",
+    "json-logger",
+    "structured-logging",
+    "request_id",
+    "request-id",
+    "elastic-logs",
+    "slog",
+    "crplogger",
+    "nodejs"
+  ],
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {
+    "prettier": "^3.7.3"
+  }
+}

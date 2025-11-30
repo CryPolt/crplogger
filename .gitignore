@@ -1,0 +1,30 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+
+# Build / Output
+dist/
+build/
+coverage/
+
+# Env
+.env
+.env.*
+!.env.example
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor folders
+.idea/
+.vscode/
+*.iml
+
+# Tests output
+.junit/
+.tap/

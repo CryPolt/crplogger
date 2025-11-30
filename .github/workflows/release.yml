@@ -1,0 +1,76 @@
+name: Release & Publish
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: "https://registry.npmjs.org/"
+
+      - name: Install deps
+        run: npm ci || npm install
+
+      - name: Determine version bump
+        id: bump
+        run: |
+          LAST_COMMIT=$(git log -1 --pretty=%B)
+
+          echo "Commit: $LAST_COMMIT"
+
+          if echo "$LAST_COMMIT" | grep -q "BREAKING CHANGE"; then
+            echo "type=major" >> $GITHUB_OUTPUT
+          elif echo "$LAST_COMMIT" | grep -q "^feat:"; then
+            echo "type=minor" >> $GITHUB_OUTPUT
+          elif echo "$LAST_COMMIT" | grep -q "^fix:"; then
+            echo "type=patch" >> $GITHUB_OUTPUT
+          else
+            echo "type=none" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Skip if none
+        if: steps.bump.outputs.type == 'none'
+        run: echo "No release needed" && exit 0
+
+      - name: Bump version
+        run: |
+          npm version ${{ steps.bump.outputs.type }} --no-git-tag-version
+          echo "NEW_VERSION=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+
+      - name: Generate CHANGELOG
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          VERSION=$NEW_VERSION
+
+          echo "## $VERSION - $DATE" >> CHANGELOG.tmp
+          git log -10 --pretty=format:"- %s" >> CHANGELOG.tmp
+          echo "" >> CHANGELOG.tmp
+
+          cat CHANGELOG.md >> CHANGELOG.tmp 2>/dev/null || true
+          mv CHANGELOG.tmp CHANGELOG.md
+
+      - name: Commit & push changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
+          git add package.json CHANGELOG.md
+          git commit -m "chore(release): v$NEW_VERSION"
+          git tag v$NEW_VERSION
+          git push
+          git push --tags
+
+      - name: Publish to NPM
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
