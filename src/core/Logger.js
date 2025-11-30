@@ -60,10 +60,10 @@ export class Logger {
         }
     }
 
-    trace(m, meta) { this.log("TRACE", m, meta) }
-    debug(m, meta) { this.log("DEBUG", m, meta) }
-    info(m, meta)  { this.log("INFO", m, meta) }
-    warn(m, meta)  { this.log("WARN", m, meta) }
-    error(m, meta) { this.log("ERROR", m, meta) }
-    fatal(m, meta) { this.log("FATAL", m, meta) }
+    logTrace(m, meta) { this.log("TRACE", m, meta) }
+    logDebug(m, meta) { this.log("DEBUG", m, meta) }
+    logInfo(m, meta)  { this.log("INFO", m, meta) }
+    logWarn(m, meta)  { this.log("WARN", m, meta) }
+    logError(m, meta) { this.log("ERROR", m, meta) }
+    logFatal(m, meta) { this.log("FATAL", m, meta) }
 }

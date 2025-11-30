@@ -19,10 +19,10 @@ export interface LoggerConfig {
 }
 
 export interface ILogger {
-    trace(msg: string | Error, meta?: LogMeta): void
-    debug(msg: string | Error, meta?: LogMeta): void
-    info(msg: string | Error, meta?: LogMeta): void
-    warn(msg: string | Error, meta?: LogMeta): void
-    error(msg: string | Error, meta?: LogMeta): void
-    fatal(msg: string | Error, meta?: LogMeta): void
+    logTrace(msg: string | Error, meta?: LogMeta): void
+    logDebug(msg: string | Error, meta?: LogMeta): void
+    logInfo(msg: string | Error, meta?: LogMeta): void
+    logWarn(msg: string | Error, meta?: LogMeta): void
+    logError(msg: string | Error, meta?: LogMeta): void
+    logFatal(msg: string | Error, meta?: LogMeta): void
 }
