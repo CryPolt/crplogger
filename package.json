@@ -1,6 +1,6 @@
 {
   "name": "@crypolt/crplogger",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Lightweight async JSON logger with automatic request_id, structured logs, global initialization and zero dependencies.",
   "author": "Vladislav Poltavskiy",
   "license": "MIT",
@@ -39,5 +39,8 @@
   },
   "devDependencies": {
     "prettier": "^3.7.3"
+  },
+  "dependencies": {
+    "@crypolt/crplogger": "^1.0.2"
   }
 }

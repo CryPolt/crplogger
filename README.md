@@ -197,4 +197,8 @@ await consumer.run({
 
 ## License
 
+## Information / Contact
+
+-- telegram @crypolt
+
 MIT License
